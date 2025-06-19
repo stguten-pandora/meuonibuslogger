@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Resumo analitico de algumas linhas do aplicativo Meu Ônibus São Luis.">
+    <link rel="icon" href="./favicon/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Pandora Controller</title>
+</head>
+
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    <header>
+        <form id="consulta">
+            <div>
+                <label for="linha">Linha:</label>
+                <select id="linha">
+                    <option value="">Todas as linhas</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="numeronibus">Nº Ônibus:</label>
+                <input type="text" id="numeronibus" name="numeronibus">
+            </div>
+            <br>
+            <div>
+                <label for="data">Escolha uma data:</label>
+                <input type="date" id="data" name="data" min="2020-08-01" max="2099-01-01">
+            </div>
+            <br>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </header>
+    <br>
+    <div>
+        <table id="datagrid" border="1px"></table>
+    </div>
+</body>
+<script src="./scripts/script.js" ></script>
+</html>

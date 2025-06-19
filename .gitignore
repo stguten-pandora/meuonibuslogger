@@ -1,0 +1,7 @@
+#IGNORAR PASTA DE MODULOS
+node_modules
+#IGNORAR PASTA DA DATABASE E AFINS
+.data
+.env
+package-lock.json
+bin
