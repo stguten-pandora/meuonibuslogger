@@ -1,8 +1,7 @@
 #IGNORAR PASTA DE MODULOS
 node_modules
-#IGNORAR PASTA DA DATABASE E AFINS
+#IGNORAR PASTA DAS CONFIGURAÇÕES E AFINS
 .data
 .env
 package-lock.json
-bin
 docker-compose.yaml

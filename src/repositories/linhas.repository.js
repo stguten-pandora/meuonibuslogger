@@ -29,15 +29,22 @@ async function todasAsLinhasAtivasRepository() {
 
 async function trocarStatusLinhasRepository(linha) {
     if (linha.toString().length < 3) return "Linha Invalida, tente novamente";
+    const client = await pool.connect();
     try {
-        await pool.query('BEGIN');
-        await pool.query(`UPDATE pd_controller.linhas SET status = (NOT status) WHERE codigo = $1`, [linha]);
-        await pool.query('COMMIT');
+        await client.query('BEGIN');
+        await client.query(`UPDATE pd_controller.linhas SET status = (NOT status) WHERE codigo = $1`, [linha]);
+        await client.query('COMMIT');
         return "Linha Atualizada";
     } catch (err) {
-        await pool.query('ROLLBACK');
-        throw Error('Erro ao atualizar linha: ', err);
+        await client.query('ROLLBACK');
+        throw new Error('Erro ao atualizar linha: ', err);
+    } finally {
+        client.release();
     }
 }
 
-export { todasAsLinhasRepository, todasAsLinhasAtivasRepository, trocarStatusLinhasRepository }
+export {
+    todasAsLinhasRepository,
+    todasAsLinhasAtivasRepository,
+    trocarStatusLinhasRepository
+}

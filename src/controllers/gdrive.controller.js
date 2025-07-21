@@ -25,9 +25,9 @@ async function authController(credentials) {
   if (fs.existsSync(tokenPath)) {
     oAuth2Client.on('tokens', (tokens) => {
       if (tokens.refresh_token) {
-        fs.writeFileSync(tokenPath, JSON.stringify(Object.assign(JSON.parse(fs.readFileSync(tokenPath, (err, token) => token)), tokens)));
+        fs.writeFileSync(tokenPath, JSON.stringify(Object.assign(JSON.parse(fs.readFileSync(tokenPath, (_, token) => token)), tokens)));
       }
-      fs.writeFileSync(tokenPath, JSON.stringify(Object.assign(JSON.parse(fs.readFileSync(tokenPath, (err, token) => token)), tokens)));
+      fs.writeFileSync(tokenPath, JSON.stringify(Object.assign(JSON.parse(fs.readFileSync(tokenPath, (_, token) => token)), tokens)));
     });
 
     oAuth2Client.setCredentials(JSON.parse(fs.readFileSync(tokenPath, (err, token) => token)));

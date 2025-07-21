@@ -26,6 +26,7 @@ async function backupController() {
     } catch (error) {
         console.log("Erro ao realizar o backup: ", error);
         sendAlerts("Erro", "Erro ao realizar o backup", `Erro ao realizar o backup: ${error.message}`);
+        throw new Error(`Erro ao realizar o backup: ${error.message}`);
     }
 }
 

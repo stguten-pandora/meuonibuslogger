@@ -11,7 +11,7 @@ rotinaSalvarPosicao.start();
 backupRoutine.start();
 refreshTokenRoutine.start();
 
-app.listen(process.env.HTTP_SERVER_PORT || 3000, () => {
-  console.log(`Servidor iniciado em http://localhost:${process.env.HTTP_SERVER_PORT || 3000}.`);
+app.listen(3000, () => {
+  console.log(`Servidor iniciado em http://localhost:3000.`);
   sendAlerts("Alerta", "Servidor Iniciado.", "O servidor está totalmente inicializado.");
 });

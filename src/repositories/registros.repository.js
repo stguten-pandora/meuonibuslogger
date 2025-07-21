@@ -1,14 +1,18 @@
 import pool from "#configs/pg.config.js";
 
 async function inserirRegistroRepository(idRota, idVeiculo, idVeiculoCompleto, posicao, tempoChegada) {
+    const client = await pool.connect();
     try {
-        await pool.query(
+        await client.query(
             `INSERT INTO pd_controller.registros (id_rota, id_veiculo, id_veiculo_completo, posicao, tempo_chegada) VALUES ($1, $2, $3, $4, $5)`,
             [idRota, idVeiculo, idVeiculoCompleto, posicao, tempoChegada]
         );
     } catch (err) {
+        await client.query('ROLLBACK');
         console.error('Erro ao salvar registro: ', err);
-        throw Error('Erro ao salvar registro: ', err);
+        throw new Error('Erro ao salvar registro: ', err);
+    } finally {
+        client.release();
     }
 }
 
@@ -72,4 +76,10 @@ async function limparDatabase() {
     }
 }
 
-export { inserirRegistroRepository, buscarTodosOsRegistrosRepository, buscarTodosOsRegistrosPorLinhaRepository, buscarRegistrosRepository, limparDatabase }
+export { 
+    inserirRegistroRepository, 
+    buscarTodosOsRegistrosRepository, 
+    buscarTodosOsRegistrosPorLinhaRepository, 
+    buscarRegistrosRepository, 
+    limparDatabase 
+}

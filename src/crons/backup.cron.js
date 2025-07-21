@@ -6,9 +6,9 @@ async function backup() {
     try {
         await backupController();
         sendAlerts("Alerta", "Backup", "Backup realizado com sucesso.");
-    } catch (e) {
-        console.log(e);
-        sendAlerts("Erro", "Backup", "Erro ao realizar o backup.\n" + e);
+    } catch (error) {
+        console.log(error);
+        sendAlerts("Erro", "Backup", "Erro ao realizar o backup.\n" + error);
     }
 }
 

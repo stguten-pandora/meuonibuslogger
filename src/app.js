@@ -1,10 +1,10 @@
-import express from "express";
 import path from "path";
-import responseBuilder from "#builders/builders.js";
+import express from "express";
 import app from "#configs/express.config.js";
-import registrosRouter from "#routes/registros.route.js";
 import linhasRouter from "#routes/linhas.route.js";
 import backupRouter from "#routes/backup.route.js";
+import responseBuilder from "#builders/builders.js";
+import registrosRouter from "#routes/registros.route.js";
 
 const publicDir = path.join(process.cwd(), "public");
 

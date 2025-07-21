@@ -13,7 +13,7 @@ function hideLoadingScreen() {
 
 function formatVeiculoCode(veiculo) {
   return veiculo.toString().length === 5 ?
-    veiculo.toString().substr(0, 2) + '.' + veiculo.toString().substr(2).replace('*', '') :
+    veiculo.toString().substr(0, 2).padStart(3, '0') + '.' + veiculo.toString().substr(2).replace('*', '') :
     veiculo.toString().substr(0, 3) + '.' + veiculo.toString().substr(3).replace('*', '');
 }
 
@@ -82,5 +82,3 @@ dados.addEventListener("submit", async (event) => {
 });
 
 document.onload = loadSelector();
-
-

@@ -1,12 +1,13 @@
 version: "3"
 networks:
   pandora:
-    external: true
+    external: false    
 services:
   pandora-controller-api:
     image: stgutem/pandora-controller
+    container_name: pandora-controller
     ports:
-      - "4000:3000"
+      - 4000:3000
     environment:
       - PG_HOST=${POSTGRES_HOST}
       - PG_USER=${POSTGRES_USERNAME}
@@ -14,8 +15,9 @@ services:
       - PG_DB=${POSTGRES_DATABASE}
       - PG_PORT=${POSTGRES_PORT}
       - TELEGRAM_BOT_TOKEN=${BOT_TOKEN}
-      - HTTP_SERVER_PORT=${APP_PORT}
       - BACKUP_TOKEN=${BACKUP_TOKEN}
     networks:
       - pandora
+    volumes:
+      - ${DATA_PATH}:/app/.data
     restart: unless-stopped
