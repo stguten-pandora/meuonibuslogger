@@ -1,6 +1,6 @@
 import { Router } from "express";
-import registrosController from "#controllers/registros.controller.js";
-import RegistrosRepository from "#repositories/registros.repository.js";
+import registrosController from "#controllers/Registros.controller.js";
+import RegistrosRepository from "#repositories/Registros.repository.js";
 
 const registrosRouter = Router();
 const registrosService = new registrosController(new RegistrosRepository());

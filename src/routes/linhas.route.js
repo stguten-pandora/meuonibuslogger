@@ -1,6 +1,6 @@
 import { Router } from "express";
-import LinhasController from "#controllers/linhas.controller.js";
-import LinhasRepository from "#repositories/linhas.repository.js";
+import LinhasController from "#controllers/Linhas.controller.js";
+import LinhasRepository from "#repositories/Linhas.repository.js";
 
 const linhasRouter = Router();
 const linhasService = new LinhasController(new LinhasRepository());
