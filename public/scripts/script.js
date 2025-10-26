@@ -1,15 +1,6 @@
 const tabela = document.getElementById("datagrid");
 const dados = document.getElementById("consulta");
-console.log(dados);
-
-
-function showLoadingScreen() {
-  document.getElementById("loadingScreen").style.display = "flex";
-}
-
-function hideLoadingScreen() {
-  document.getElementById("loadingScreen").style.display = "none";
-}
+const tabelaContainer = document.getElementById("tabela-container");
 
 function formatVeiculoCode(veiculo) {
   return veiculo.toString().length === 5 ?
@@ -21,28 +12,24 @@ function formatDate() {
   return document.getElementById("data").value || `${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate()}`
 }
 
-function loadSelector() {
-  fetch("/linhas/todas-as-linhas")
-    .then((response) => response.json())
-    .then((data) => {
-      const select = document.getElementById("linha");
-      for (linha of data) {
-        select.add(new Option(linha.nome, linha.codigo));
-      }
-    });
-
-}
-
 dados.addEventListener("submit", async (event) => {
   event.preventDefault();
   showLoadingScreen();
+
   tabela.innerHTML = "";
+  tabelaContainer.innerHTML = "";
+  tabelaContainer.appendChild(tabela);
 
   const linha = document.getElementById("linha").value || '';
   const numeronibus = document.getElementById("numeronibus").value || 0;
   const data = formatDate();
 
   const resultado = await fetch(`/registros/buscar?data=${data}&linha=${linha}&numeronibus=${numeronibus}`).then((response) => response.json());
+  if (resultado.length == 0) {
+    tabelaContainer.innerHTML = "<center><h2>Nenhum resultado encontrado</h2></center>";
+    hideLoadingScreen();
+    return 0;
+  }
 
   const headers = {
     horario: "Horario",
@@ -50,7 +37,7 @@ dados.addEventListener("submit", async (event) => {
     linha: "Linha",
     tempoChegada: "Minutos",
     posicao: "Posição",
-  };
+  };  
 
   //Header Code
   const headerRow = document.createElement("tr");

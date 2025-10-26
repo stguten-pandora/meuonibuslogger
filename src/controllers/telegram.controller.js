@@ -1,6 +1,4 @@
-import telegramBot from "#configs/telebot.config.js";
-
-telegramBot.on("text", () => { })
+import axios from "axios";
 
 async function sendAlerts(typeAlert, message, descricao) {
   try {
@@ -12,7 +10,16 @@ async function sendAlerts(typeAlert, message, descricao) {
       `<b>Data e Hora:</b> ${dataAtual} \n` +
       `<b>Descrição:</b> ${descricao} \n`;
 
-    return telegramBot.sendMessage("@meuonibus", message, { parseMode: "html", notification: false });
+    const response = await axios.get("https://api.telegram.org/bot" + process.env.TELEGRAM_BOT_TOKEN + "/sendMessage", {
+      params: {
+        chat_id: "-1002070883447",
+        text: message,
+        parse_mode: "HTML",
+        disable_notification: true,
+      },
+    });
+    
+    return response.data;
   } catch (error) {
     console.error("Erro ao enviar alerta:", error);
     throw new Error(`Erro ao enviar alerta: ${error.message}`);

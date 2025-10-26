@@ -1,10 +1,12 @@
 import { Router } from "express";
-import * as registrosController from "#controllers/registros.controller.js";
+import registrosController from "#controllers/registros.controller.js";
+import RegistrosRepository from "#repositories/registros.repository.js";
 
 const registrosRouter = Router();
+const registrosService = new registrosController(new RegistrosRepository());
 
-registrosRouter.get("/buscar", registrosController.buscarRegistrosController);
-registrosRouter.get("/todos", registrosController.buscarTodosOsRegistrosController);
-registrosRouter.get("/todos/:codigo", registrosController.buscarTodosOsRegistrosPorLinhaController);
+registrosRouter.get("/buscar", registrosService.buscarRegistrosController);
+registrosRouter.get("/todos", registrosService.buscarTodosOsRegistrosController);
+registrosRouter.get("/todos/:codigo", registrosService.buscarTodosOsRegistrosPorLinhaController);
 
 export default registrosRouter;

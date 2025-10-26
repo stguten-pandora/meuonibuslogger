@@ -1,16 +1,27 @@
-# Use the official Node.js LTS image
+# Use a imagem oficial Node.js LTS (baseada em Alpine)
 FROM node:current-alpine
-# Set working directory
+
+# Instale o cliente PostgreSQL (necessário para pg_dump/psql)
+# 'postgresql-client' é o nome do pacote no Alpine
+RUN apk update && apk add postgresql-client && rm -rf /var/cache/apk/*
+
+# Define o diretório de trabalho
 WORKDIR /app
-# Copy package.json and package-lock.json
+
+# Copia package.json e package-lock.json
 COPY package*.json ./
-# Install dependencies
+
+# Instala dependências
 RUN npm install --omit=dev
-# Create a directory for application data
+
+# Cria um diretório para dados da aplicação (pode ser usado para backups)
 RUN mkdir -p /app/.data
-# Copy the rest of the application code
+
+# Copia o restante do código da aplicação
 COPY . .
-# Expose the port your Express app runs on
+
+# Expõe a porta da sua aplicação Express
 EXPOSE 3000
-# Start the application
+
+# Inicia a aplicação
 CMD ["npm", "run", "start"]

@@ -1,13 +1,15 @@
 version: "3"
 networks:
   pandora:
+    name: pandora
+    driver: bridge
     external: false    
 services:
-  pandora-controller-api:
-    image: stgutem/pandora-controller
-    container_name: pandora-controller
+  pandora-meuonibuslogger-api:
+    image: stgutem/pandora-meuonibuslogger:latest
+    container_name: pandora-meuonibuslogger
     ports:
-      - 4000:3000
+      - ${APP_PORT}:3000
     environment:
       - PG_HOST=${POSTGRES_HOST}
       - PG_USER=${POSTGRES_USERNAME}
@@ -16,6 +18,7 @@ services:
       - PG_PORT=${POSTGRES_PORT}
       - TELEGRAM_BOT_TOKEN=${BOT_TOKEN}
       - BACKUP_TOKEN=${BACKUP_TOKEN}
+      - TZ=America/Fortaleza
     networks:
       - pandora
     volumes:

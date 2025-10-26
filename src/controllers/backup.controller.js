@@ -1,16 +1,19 @@
 import os from 'os';
 import path from 'path';
+import fs from "node:fs";
 import { execSync } from 'node:child_process';
 import { sendAlerts } from '#controllers/telegram.controller.js';
 import { databaseUpload } from '#controllers/gdrive.controller.js';
 
 async function backupController() {
     try {
-        const data = new Date().toLocaleString('pt-BR').replace(',', '').trim().split(' ')[0].replace(/\//g, '-');
+        const data = new Date().toLocaleString('pt-BR').replace(',', '').split(' ')[0].replace(/\//g, '-');
         const destinationFilename = `${data}.sql`;
+        const destinationDir = path.resolve(process.cwd(), ".data", "backups");
+        if (!fs.existsSync(destinationDir)) fs.mkdirSync(destinationDir, { recursive: true });
         const destinationPath = path.resolve(process.cwd(), ".data", "backups", destinationFilename);
-        const pgDumpCommand = `pg_dump -U ${process.env.PG_USER} -d ${process.env.PG_DB} -n pd_controller > ${destinationPath}`;
-
+        const pgDumpCommand = `pg_dump --dbname='postgresql://${process.env.PG_USER}:${process.env.PG_PASS}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DB}' -n pd_controller > ${destinationPath}`;
+        
         switch (os.platform()) {
             case 'linux':
             case 'win32':

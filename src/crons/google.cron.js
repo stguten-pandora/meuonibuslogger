@@ -12,6 +12,6 @@ async function refreshToken(){
     }
 }
 
-const refreshTokenRoutine = cron.schedule("0 0 * * 0", refreshToken);
+const refreshTokenCron = cron.schedule("0 0 * * 0", refreshToken);
 
-export default refreshTokenRoutine;
+export default refreshTokenCron;

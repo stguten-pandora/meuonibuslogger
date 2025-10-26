@@ -35,14 +35,13 @@ CREATE TABLE IF NOT EXISTS pd_controller.rotas (
 	CONSTRAINT rotas_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS pd_controller.veiculos (
-	numero int4 NOT NULL,
-	empresa text NULL,
-	carroceria text NULL,
-	chassi text NULL,
-	link_foto text NULL,
-	ac bool DEFAULT false NOT NULL,
-	cobrador bool DEFAULT false NOT NULL,
-	acessibilidade bool DEFAULT false NOT NULL,
-	CONSTRAINT veiculos_pk PRIMARY KEY (numero)
-);
+CREATE OR REPLACE VIEW pd_controller.registros_view
+AS SELECT row_number() OVER () AS id,
+	r.id_veiculo_completo AS veiculo,
+	rota.sentido,
+	r.tempo_chegada AS tempochegada,
+	r.horario
+FROM pd_controller.registros r
+	JOIN pd_controller.rotas rota ON rota.id = r.id_rota
+	JOIN pd_controller.linhas l ON l.id = rota.id_linha
+WHERE r.horario::date = CURRENT_DATE;

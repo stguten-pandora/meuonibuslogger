@@ -12,6 +12,6 @@ async function backup() {
     }
 }
 
-const backupRoutine = cron.schedule("0 4 1 1 *", backup);
+const backupCron = cron.schedule("0 4 1 1 *", backup);
 
-export default backupRoutine;
+export default backupCron;
