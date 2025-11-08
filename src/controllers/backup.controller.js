@@ -3,7 +3,7 @@ import path from 'path';
 import fs from "node:fs";
 import { execSync } from 'node:child_process';
 import { sendAlerts } from '#controllers/telegram.controller.js';
-import { databaseUpload } from '#controllers/gdrive.controller.js';
+//import { databaseUpload } from '#controllers/gdrive.controller.js';
 
 async function backupController() {
     try {
@@ -24,7 +24,11 @@ async function backupController() {
         }
 
         console.log(`Realizando Backup em segundo plano...\nBackup iniciado em ${new Date().toLocaleString('pt-BR').replace(',', '')}`);
-        const backupId = await databaseUpload(destinationFilename, destinationPath);
+        /**
+         * TODO: Arrumar problemas para upload com google drive
+         * Upload desabilitado ate arrumar outra forma de fazer upload para o google drive sem necessitar de autenticação manual
+         */
+        //const backupId = await databaseUpload(destinationFilename, destinationPath);
         sendAlerts("Aviso", "Backup Concluido", `Backup Realizado com sucesso. Link para o arquivo: https://drive.google.com/file/d/${backupId}`);
     } catch (error) {
         console.log("Erro ao realizar o backup: ", error);
