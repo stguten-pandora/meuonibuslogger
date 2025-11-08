@@ -29,9 +29,9 @@ async function backupController() {
          * Upload desabilitado ate arrumar outra forma de fazer upload para o google drive sem necessitar de autenticação manual
          */
         //const backupId = await databaseUpload(destinationFilename, destinationPath);
-        sendAlerts("Aviso", "Backup Concluido", `Backup Realizado com sucesso. Link para o arquivo: https://drive.google.com/file/d/${backupId}`);
+        sendAlerts("Aviso", "Backup Concluido", `Backup Realizado com sucesso. Acesso via FTP ou no servidor onde o PD Controller está instalado. Nome do arquivo: ${destinationFilename}`);
     } catch (error) {
-        console.log("Erro ao realizar o backup: ", error);
+        //console.log("Erro ao realizar o backup: ", error);
         sendAlerts("Erro", "Erro ao realizar o backup", `Erro ao realizar o backup: ${error.message}`);
         throw new Error(`Erro ao realizar o backup: ${error.message}`);
     }
