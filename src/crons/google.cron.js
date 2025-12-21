@@ -1,14 +1,14 @@
 import cron from 'node-cron';
 import { gDriveApi } from '#controllers/gdrive.controller.js';
-import { sendAlerts } from '#controllers/telegram.controller.js';
+import Telegram from '#controllers/Telegram.controller.js';
 
 async function refreshToken(){
     try{
         await gDriveApi();
-        sendAlerts("Alerta", "Token Google", "Token do Google foi atualizado.");
+        Telegram.sendAlert("Alerta", "Token Google", "Token do Google foi atualizado.");
     }catch(error){
         console.log(error);
-        sendAlerts("Erro", "Token Google", "Erro ao atualizar o token do Google.\n" + error);
+        Telegram.sendAlert("Erro", "Token Google", "Erro ao atualizar o token do Google.\n" + error);
     }
 }
 

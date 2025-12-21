@@ -2,7 +2,7 @@ import os from 'os';
 import path from 'path';
 import fs from "node:fs";
 import { execSync } from 'node:child_process';
-import { sendAlerts } from '#controllers/telegram.controller.js';
+import Telegram from '#controllers/Telegram.controller.js';
 //import { databaseUpload } from '#controllers/gdrive.controller.js';
 
 async function backupController() {
@@ -29,10 +29,10 @@ async function backupController() {
          * Upload desabilitado ate arrumar outra forma de fazer upload para o google drive sem necessitar de autenticação manual
          */
         //const backupId = await databaseUpload(destinationFilename, destinationPath);
-        sendAlerts("Aviso", "Backup Concluido", `Backup Realizado com sucesso. Acesso via FTP ou no servidor onde o PD Controller está instalado. Nome do arquivo: ${destinationFilename}`);
+        Telegram.sendAlert("Aviso", "Backup Concluido", `Backup Realizado com sucesso. Acesso via FTP ou no servidor onde o PD Controller está instalado. Nome do arquivo: ${destinationFilename}`);
     } catch (error) {
         //console.log("Erro ao realizar o backup: ", error);
-        sendAlerts("Erro", "Erro ao realizar o backup", `Erro ao realizar o backup: ${error.message}`);
+        Telegram.sendAlert("Erro", "Erro ao realizar o backup", `Erro ao realizar o backup: ${error.message}`);
         throw new Error(`Erro ao realizar o backup: ${error.message}`);
     }
 }

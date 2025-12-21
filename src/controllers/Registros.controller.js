@@ -1,4 +1,4 @@
-import http from '#configs/axios.config.js';
+import axios from '#configs/axios.config.js';
 
 class RegistroController {
     constructor(registroRepository) {
@@ -9,7 +9,7 @@ class RegistroController {
     }
 
     async inserirRegistroController(pontoFinal, rota) {
-        const { data } = await http.get(`/forecast/lines/load/all/forecast/${pontoFinal}/${rota}/1228`);
+        const { data } = await axios.get(`/forecast/lines/load/all/forecast/${pontoFinal}/${rota}/1228`);
         try {
             await Promise.all(data.map(async (resultado) => {
                 await this.registroRepository.inserirRegistroRepository(resultado.patternId, resultado.codVehicle.replace(/\D/g, ''), resultado.codVehicle, Object.values(resultado.latLng), resultado.arrivalTime);

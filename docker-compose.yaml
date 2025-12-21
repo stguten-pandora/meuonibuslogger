@@ -17,6 +17,7 @@ services:
       - PG_DB=${POSTGRES_DATABASE}
       - PG_PORT=${POSTGRES_PORT}
       - TELEGRAM_BOT_TOKEN=${BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${CHAT_ID}
       - BACKUP_TOKEN=${BACKUP_TOKEN}
       - TZ=America/Fortaleza
     networks:
