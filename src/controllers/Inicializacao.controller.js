@@ -25,7 +25,7 @@ class InicializacaoController {
         try {
             backupCron.start();
             registrosCron.start();
-            refreshTokenCron.start();
+            //refreshTokenCron.start();
         } catch (error) {
             console.error("Erro ao inicializar os cron jobs:", error);
         }
