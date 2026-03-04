@@ -12,6 +12,7 @@ class InicializacaoRepository {
                 const nomeLinha = linha.name.split('-');
                 await client.query('INSERT INTO pd_controller.linhas(id, nome, codigo) values ($1,$2,$3) ON CONFLICT DO NOTHING',
                     [linha.id, nomeLinha.length == 1 ? linha.name.substring(linha.name.search(' ')).trimStart() : nomeLinha[1].trimStart(), linha.numero]);
+                if(linha.trajetos.length == 0) continue;
                 await client.query('INSERT INTO pd_controller.rotas(id, id_linha, sentido, ponto_inicial, ponto_final) values ($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING',
                     [linha.trajetos[0].id_migracao, linha.id, linha.trajetos[0].nome, linha.trajetos[0].startPoint._id, linha.trajetos[1].startPoint._id]);
                 await client.query('INSERT INTO pd_controller.rotas(id, id_linha, sentido, ponto_inicial, ponto_final) values ($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING',

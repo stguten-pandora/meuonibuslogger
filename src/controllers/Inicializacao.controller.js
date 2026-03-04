@@ -3,7 +3,6 @@ import axios from "#configs/axios.config.js";
 import backupCron from "#src/crons/backup.cron.js";
 import Telegram from "#controllers/Telegram.controller.js";
 import registrosCron from "#src/crons/registro.cron.js";
-import refreshTokenCron from "#src/crons/google.cron.js";
 
 class InicializacaoController {
     constructor(inicializacaoRepository) {
@@ -25,7 +24,6 @@ class InicializacaoController {
         try {
             backupCron.start();
             registrosCron.start();
-            //refreshTokenCron.start();
         } catch (error) {
             console.error("Erro ao inicializar os cron jobs:", error);
         }
@@ -39,6 +37,7 @@ class InicializacaoController {
             console.log(`Servidor iniciado em http://localhost:${process.env.PORT || 3000}`);
             Telegram.sendAlert("Alerta", "Servidor Iniciado.", "O servidor está totalmente inicializado.");
         });
+
     }
 }
 
